@@ -41,11 +41,6 @@ This section outlines how I explored the Northwind database using SQL, including
 ```sql
 SELECT* From Suppliers WHERE Country Like "%land%";
 ```
-**2. Number of Orders per Product**
-```sql
-SELECT ProductName, Price, SUM(Quantity) AS "Total Quantity of Orders" FROM Products LEFT JOIN Order_details  
-ON Products.ProductID=Order_details.ProductID GROUP BY ProductName, Price;
-```
 #### 2.Practical JOIN Queries
 
 | Task | Objective | SQL Query |
@@ -69,6 +64,14 @@ ON Orders.CustomerID=Customers.CustomerID INNER JOIN Employees ON Orders.Employe
 ```sql
 SELECT ProductName, Price, SUM(Quantity) AS "Total Quantity of Orders" FROM Products LEFT JOIN Order_details  
 ON Products.ProductID=Order_details.ProductID GROUP BY ProductName, Price;
+```
+**3. Top Products by Revenue**
+``` sql
+SELECT p.ProductName, SUM(od.Quantity * p.Price) AS TotalSales
+FROM Order_Details as od
+JOIN Products as p ON od.ProductID = p.ProductID
+GROUP BY p.ProductName
+ORDER BY TotalSales DESC;
 ```
 --- 
 ## 📌 How to Use
